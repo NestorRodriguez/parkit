@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage implements OnInit {
 
-  userForm =
+  /*userForm =
   {
     name : String,
     password : String,
@@ -24,12 +24,12 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private loginService: LoginService,
     private toastCtrl: ToastController,
-  ) { }
+  ) { }*/
 
   ngOnInit() {
   }
 
-  async login(forma: NgForm)
+ /* async login(forma: NgForm)
   {
     if (forma.valid) {
       const loading = await this.loadingCtrl.create({
@@ -88,5 +88,5 @@ export class LoginPage implements OnInit {
             }
         });
     }
-  }
+  }*/
 }
