@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `parkit`.`usuarios` (
   `correo` VARCHAR(100) NOT NULL,
   `clave` VARCHAR(80) NOT NULL,
   `rol` VARCHAR(3) NULL,
+  `estado` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -42,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `parkit`.`parqueaderos` (
   `horario` VARCHAR(100) NOT NULL,
   `abre` TIME NOT NULL,
   `cierra` TIME NOT NULL,
+  `estado` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -57,6 +59,8 @@ CREATE TABLE IF NOT EXISTS `parkit`.`administradores` (
   `no_documento` VARCHAR(15) NOT NULL,
   `correo` VARCHAR(100) NOT NULL,
   `clave` VARCHAR(50) NOT NULL,
+   `rol` VARCHAR(3) NOT NULL,
+   `estado` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -278,12 +282,19 @@ CREATE TABLE IF NOT EXISTS `parkit`.`tarifas` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-insert into usuarios (nombre,apellidos,tipo_documento,no_documento,celular,correo,clave,rol)
-values ('Sara','Camacho Albarracin','CC','1052415124','3108605922','saritacamachoa77@gmail.com','1234','U');
+insert into usuarios (nombre,apellidos,tipo_documento,no_documento,celular,correo,clave,rol,estado)
+values ('Sara','Camacho Albarracin','CC','1052415124','3108605922','saritacamachoa77@gmail.com','1234','U','ACTIVO');
 
-insert into administradores (nombres,apellidos,tipo_documento,no_documento,correo,clave,rol)
-values ('Estefania','Camacho Albarracin', 'CC', '1052415124', 'sara210299@outlook.com','1234','A');
+insert into administradores (nombres,apellidos,tipo_documento,no_documento,correo,clave,rol,estado)
+values ('Estefania','Camacho Albarracin', 'CC', '1052415124', 'sara210299@outlook.com','1234','A','ACTIVO');
 
 insert into vehiculos (tipo_vehiculo,placa,color,puertas,marca,modelo,usuario)
 values ('V','SYD043','BLANCO','4','CHEVROLET','2017',1);
+
+create view usuarios_app (usuarios,clave,rol,estado) as select usuarios.correo,usuarios.clave,usuarios.rol, usuarios.estado from usuarios 
+UNION SELECT administradores.correo,administradores.clave,administradores.rol,administradores.estado from administradores 
+UNION SELECT parqueaderos.correo,parqueaderos.clave,parqueaderos.rol, parqueaderos.estado from parqueaderos; 
+
+
+
 
