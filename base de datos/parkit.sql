@@ -60,40 +60,6 @@ CREATE TABLE IF NOT EXISTS `parkit`.`administradores` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `parkit`.`users_app`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `parkit`.`users_app` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(100) NOT NULL,
-  `clave` VARCHAR(50) NOT NULL,
-  `rol` VARCHAR(3) NOT NULL,
-  `usuario` INT NOT NULL,
-  `parqueadero` INT NOT NULL,
-  `administrador` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_users_app_usuarios_idx` (`usuario` ASC),
-  INDEX `fk_users_app_parqueaderos1_idx` (`parqueadero` ASC),
-  INDEX `fk_users_app_administradores1_idx` (`administrador` ASC),
-  CONSTRAINT `fk_users_app_usuarios`
-    FOREIGN KEY (`usuario`)
-    REFERENCES `parkit`.`usuarios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_app_parqueaderos1`
-    FOREIGN KEY (`parqueadero`)
-    REFERENCES `parkit`.`parqueaderos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_app_administradores1`
-    FOREIGN KEY (`administrador`)
-    REFERENCES `parkit`.`administradores` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `parkit`.`vehiculos`
 -- -----------------------------------------------------
@@ -311,4 +277,13 @@ CREATE TABLE IF NOT EXISTS `parkit`.`tarifas` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+insert into usuarios (nombre,apellidos,tipo_documento,no_documento,celular,correo,clave,rol)
+values ('Sara','Camacho Albarracin','CC','1052415124','3108605922','saritacamachoa77@gmail.com','1234','U');
+
+insert into administradores (nombres,apellidos,tipo_documento,no_documento,correo,clave,rol)
+values ('Estefania','Camacho Albarracin', 'CC', '1052415124', 'sara210299@outlook.com','1234','A');
+
+insert into vehiculos (tipo_vehiculo,placa,color,puertas,marca,modelo,usuario)
+values ('V','SYD043','BLANCO','4','CHEVROLET','2017',1);
 
