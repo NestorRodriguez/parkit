@@ -197,13 +197,13 @@ CREATE TABLE IF NOT EXISTS `parkit`.`novedades` (
   `novedad` LONGTEXT NOT NULL,
   `fecha_hora` DATETIME NOT NULL,
   `estado` VARCHAR(30) NOT NULL,
-  `usuarios` INT NOT NULL,
+  `usuario` INT NOT NULL,
   `parqueadero` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_novedades_usuarios1_idx` (`usuarios` ASC),
+  INDEX `fk_novedades_usuarios1_idx` (`usuario` ASC),
   INDEX `fk_novedades_parqueaderos1_idx` (`parqueadero` ASC),
   CONSTRAINT `fk_novedades_usuarios1`
-    FOREIGN KEY (`usuarios`)
+    FOREIGN KEY (`usuario`)
     REFERENCES `parkit`.`usuarios` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -245,6 +245,8 @@ CREATE TABLE IF NOT EXISTS `parkit`.`codigos_usuarios` (
   `usuario` INT NOT NULL,
   `codigo_promocional` INT NOT NULL,
   `fecha_hora_uso` DATETIME NOT NULL,
+  `fecha_hora_activacion` DATETIME NOT NULL,
+  `servicio` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_codigos_usuarios_usuarios1_idx` (`usuario` ASC),
   INDEX `fk_codigos_usuarios_codigos_promocionales1_idx` (`codigo_promocional` ASC),
@@ -256,6 +258,11 @@ CREATE TABLE IF NOT EXISTS `parkit`.`codigos_usuarios` (
   CONSTRAINT `fk_codigos_usuarios_codigos_promocionales1`
     FOREIGN KEY (`codigo_promocional`)
     REFERENCES `parkit`.`codigos_promocionales` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_codigos_usuarios_servicios1`
+    FOREIGN KEY (`servicio`)
+    REFERENCES `parkit`.`servicios` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -294,7 +301,3 @@ values ('V','SYD043','BLANCO','4','CHEVROLET','2017',1);
 create view usuarios_app (usuarios,clave,rol,estado) as select usuarios.correo,usuarios.clave,usuarios.rol, usuarios.estado from usuarios 
 UNION SELECT administradores.correo,administradores.clave,administradores.rol,administradores.estado from administradores 
 UNION SELECT parqueaderos.correo,parqueaderos.clave,parqueaderos.rol, parqueaderos.estado from parqueaderos; 
-
-
-
-
