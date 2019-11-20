@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'registrobefore', loadChildren: './registrobefore/registrobefore.module#RegistrobeforePageModule' },
   { path: 'registrouser', loadChildren: './registrouser/registrouser.module#RegistrouserPageModule' },
+  { path: 'registropark', loadChildren: './registropark/registropark.module#RegistroparkPageModule' },
 ];
 
 @NgModule({
