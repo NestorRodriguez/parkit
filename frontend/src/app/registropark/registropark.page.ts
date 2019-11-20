@@ -15,24 +15,25 @@ export class RegistroparkPage implements OnInit {
   constructor(private platform: PlatformRef, private file: File, private ft: FileTransfer,
     private fileOpener: FileOpener, private document: DocumentViewer) {
 
-    }
-    openLocalPdf(){
-      let filePath = this.file.applicationDirectory + 'assets';
+  }
+  openLocalPdf() {
+    let filePath = this.file.applicationDirectory + 'assets';
 
-      if (this.platform.is('andorid')){
-        let fakeName = Date.now();
-        this.file.copyFile(filePath, 'TyC_PARKIT.pdf', this.file.dataDirectory, `${fakeName}.pdf`).then(result => {
-
-        });
-      }else{
-        const options: DocumentViewerOptions = {
-          title: 'Terminos Y Condiciones PARKIT'
-        }
-        this.document.viewDocument(`${filePath}/TyC_PARKIT.pdf`, 'application/pdf', options);
+    if (this.platform.is('andorid')) {
+      let fakeName = Date.now();
+      this.file.copyFile(filePath, 'TyC_PARKIT.pdf', this.file.dataDirectory, `${fakeName}.pdf`).then(result => {
+        this.fileOpener.open(result.nativeURL, 'application/pdf');
+      });
+    } else {
+      const options: DocumentViewerOptions = {
+        title: 'Terminos Y Condiciones PARKIT'
       }
+      this.document.viewDocument(`${filePath}/TyC_PARKIT.pdf`, 'application/pdf', options);
     }
+  }
 
   ngOnInit() {
+    
   }
 
 }
